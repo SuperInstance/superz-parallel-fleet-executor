@@ -1,0 +1,6 @@
+# Super Z Parallel Fleet Executor — Python Dependencies
+# No external packages required. All tools use Python standard library.
+# Minimum Python version: 3.8+
+
+# The agent runtime (LLM API calls) is managed by the lighthouse keeper,
+# not by this repository. This file exists to set expectations.

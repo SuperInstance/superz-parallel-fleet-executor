@@ -78,7 +78,7 @@ def scan_directives():
         return []
     directives = []
     for f in sorted(FROM_FLEET_DIR.iterdir()):
-        if f.is_file() and not f.name.startswith("."):
+        if f.is_file() and not f.name.startswith(".") and not f.name.lower() == "readme.md":
             stat = f.stat()
             mtime = datetime.fromtimestamp(stat.st_mtime, tz=timezone.utc)
             directives.append({

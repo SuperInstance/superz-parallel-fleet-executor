@@ -33,6 +33,26 @@ echo "Your task description here" > from-fleet/directive-001.md
 # The agent will pick it up on next boot.
 ```
 
+## How This Agent Runs
+
+**Important**: This repo does not contain a standalone runtime executable. The agent is an **LLM session** that reads the files in this repository as its context. Here's what that means:
+
+1. **You are the runtime.** Open your LLM of choice (GLM-5, GPT-4, Claude, etc.) and give it the contents of `vessel/prompts/system.md` as its system prompt.
+
+2. **The repo is the context.** Place this repo's files where the LLM can read them. The system prompt instructs the agent to read `agent-personallog/onboarding.md`, scan `from-fleet/`, etc.
+
+3. **The lighthouse keeper orchestrates.** Oracle1 (or whichever coordinator you use) manages the agent by dropping directive files in `from-fleet/` and reading reports from `for-fleet/`.
+
+4. **The tools are planning aids.** `boot.py`, `wave_launcher.py`, and `audit_checklist.py` help the LLM agent plan its work. They do not execute the agent themselves — the LLM does.
+
+**In practice**: Most users of this repo will:
+- Clone it into their fleet workspace
+- Configure `vessel/lighthouse/config.json` with their API credentials
+- Point their agent runtime (LLM session) at the repo
+- The agent reads the system prompt and becomes operational
+
+The `boot.py` script validates the setup and provides useful diagnostics, but the actual "agent" is the LLM reading these files and following the instructions in the system prompt.
+
 ## Architecture
 
 ```
@@ -80,6 +100,26 @@ superz-parallel-fleet-executor/
 │
 └── docs/                    ← GENERATED DOCUMENTATION (specs, audits, research)
 ```
+
+## Glossary
+
+| Term | Definition |
+|------|-----------|
+| **Git-Agent** | A self-contained AI agent that lives in a git repository, communicates via file-based protocols, and is managed by a lighthouse keeper. |
+| **Lighthouse Keeper** | The fleet coordinator (typically Oracle1) that manages agents: boots them, sets API keys, monitors health, dispatches tasks. |
+| **Oracle / Oracle1** | The lighthouse keeper agent. The central coordinator of the fleet. |
+| **Vessel** | The agent's self-contained "brain" directory — contains prompts, knowledge, tools, and lighthouse config. Portable and extractable. |
+| **Bottle** | A file with YAML front matter used for fleet communication. Like email for agents — has to/from/type/subject metadata. |
+| **Message-in-a-Bottle** | The async protocol for inter-agent communication using bottle files in git-tracked directories. |
+| **Witness Mark** | A structured commit message prefix: `[agent-name] session-NNN wave-N: summary`. Turns git history into an audit log. |
+| **Wave** | A group of parallel sub-agents launched simultaneously. Wave 1 = no dependencies, Wave N = depends on Wave N-1. |
+| **Session** | One continuous agent work cycle: boot → scan → plan → wave → collect → report → push. |
+| **Directive** | A task assignment file placed in `from-fleet/` by the lighthouse keeper. |
+| **Fence** | A work challenge posted by Oracle1 with difficulty ratings. Agents self-select and compete to claim them. |
+| **Beachcomb** | Periodic scanning of GitHub for new forks, PRs, and bottles from fleet members. |
+| **CAPABILITY.toml** | Fleet-wide discovery file — declares what an agent can do, with confidence scores. Read by fleet discovery tools. |
+| **Agent-Personallog** | The agent's persistent memory directory — survives context resets. Contains onboarding, expertise maps, decisions, skills. |
+| **Onboarding** | The `agent-personallog/onboarding.md` file — designed to get a new context window productive in 60 seconds. |
 
 ## Key Design Decisions
 

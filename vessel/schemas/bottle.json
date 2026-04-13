@@ -30,6 +30,10 @@
     "Subject": {
       "type": "string",
       "description": "Short summary of bottle content"
+    },
+    "Refers-To": {
+      "type": "string",
+      "description": "Filename of a previous bottle this one responds to or references (for threading)"
     }
   }
 }
