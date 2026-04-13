@@ -1,0 +1,18 @@
+{
+  "agent": "Super Z",
+  "status": "active",
+  "session": 0,
+  "model": "not-configured",
+  "tasks_in_progress": [],
+  "last_push": "never",
+  "last_directive_received": "never",
+  "blockers": [],
+  "needs": ["API key and model URL in vessel/lighthouse/config.json"],
+  "meta": {
+    "cumulative_lines": 0,
+    "cumulative_files": 0,
+    "cumulative_pushes": 0,
+    "bugs_found": 0,
+    "specs_shipped": 0
+  }
+}

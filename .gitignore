@@ -1,0 +1,30 @@
+# Lighthouse config (contains API keys — never commit)
+vessel/lighthouse/config.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Agent state (transient)
+agent-personallog/wave-state.json
+
+# Logs (if any)
+*.log

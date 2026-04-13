@@ -1,0 +1,44 @@
+{
+  "agent_name": "Super Z",
+  "agent_role": "Parallel Fleet Executor",
+  "version": "1.0.0",
+
+  "model": {
+    "provider": "openai-compatible",
+    "api_key": "YOUR_API_KEY_HERE",
+    "api_url": "https://api.example.com/v1/chat/completions",
+    "model_id": "glm-5-turbo",
+    "temperature": 0.7,
+    "max_tokens": 16384
+  },
+
+  "lighthouse": {
+    "keeper": "Oracle1",
+    "health_check_interval_seconds": 3600,
+    "health_check_timeout_seconds": 120,
+    "auto_respond": true
+  },
+
+  "fleet": {
+    "repos": {
+      "primary": "superz-parallel-fleet-executor",
+      "associated": []
+    },
+    "protocol_version": "1.0",
+    "push_on_every_commit": true
+  },
+
+  "runtime": {
+    "max_wave_size": 8,
+    "max_task_duration_minutes": 30,
+    "retry_on_failure": true,
+    "max_retries": 1,
+    "session_timeout_minutes": 60
+  },
+
+  "logging": {
+    "session_reports_dir": "for-fleet/",
+    "decision_logs_dir": "agent-personallog/decisions/",
+    "worklog_file": "agent-personallog/onboarding.md"
+  }
+}

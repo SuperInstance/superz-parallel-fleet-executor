@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Lighthouse Health Check Response Schema",
+  "description": "Schema for agent health check responses to the lighthouse keeper",
+  "type": "object",
+  "required": ["agent", "status", "session", "model"],
+  "properties": {
+    "agent": {
+      "type": "string",
+      "description": "Agent name"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "idle", "error", "booting"],
+      "description": "Current agent status"
+    },
+    "session": {
+      "type": "integer",
+      "description": "Current or most recent session number"
+    },
+    "model": {
+      "type": "string",
+      "description": "Model identifier being used"
+    },
+    "tasks_in_progress": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "List of tasks currently being worked on"
+    },
+    "last_push": {
+      "type": "string",
+      "description": "Timestamp of last git push (ISO 8601 or 'never')"
+    },
+    "last_directive_received": {
+      "type": "string",
+      "description": "Timestamp of last directive received (ISO 8601 or 'never')"
+    },
+    "blockers": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "List of current blockers"
+    },
+    "needs": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "List of things the agent needs from the lighthouse keeper"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "cumulative_lines": {"type": "integer"},
+        "cumulative_files": {"type": "integer"},
+        "cumulative_pushes": {"type": "integer"},
+        "bugs_found": {"type": "integer"},
+        "specs_shipped": {"type": "integer"}
+      }
+    }
+  }
+}

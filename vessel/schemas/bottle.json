@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Message-in-a-Bottle Schema",
+  "description": "Schema for fleet bottle files (message-in-a-bottle protocol)",
+  "type": "object",
+  "required": ["Bottle-To", "Bottle-From", "Bottle-Type", "Session", "Timestamp", "Subject"],
+  "properties": {
+    "Bottle-To": {
+      "type": "string",
+      "description": "Intended recipient (agent name, 'fleet', or 'any-vessel')"
+    },
+    "Bottle-From": {
+      "type": "string",
+      "description": "Sender agent name"
+    },
+    "Bottle-Type": {
+      "type": "string",
+      "enum": ["report", "directive", "response", "insight"],
+      "description": "Type of bottle content"
+    },
+    "Session": {
+      "type": "integer",
+      "description": "Session number when this bottle was created"
+    },
+    "Timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp"
+    },
+    "Subject": {
+      "type": "string",
+      "description": "Short summary of bottle content"
+    }
+  }
+}
