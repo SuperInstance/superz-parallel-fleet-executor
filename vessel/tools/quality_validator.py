@@ -92,8 +92,8 @@ def check_paragraph_quality(body_text):
         sentences = count_sentences(para)
         words = count_words(para)
 
-        if words < 15:
-            # Very short — might be a transitional line, not a paragraph
+        if words < 30:
+            # Short text — might be a transitional line, heading context, or list item
             continue
 
         if sentences < MIN_SENTENCES_PER_PARAGRAPH:

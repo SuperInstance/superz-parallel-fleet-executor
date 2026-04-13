@@ -25,14 +25,16 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-VESSEL_DIR = REPO_ROOT / "vessel"
-CONFIG_PATH = VESSEL_DIR / "lighthouse" / "config.json"
-CAPABILITY_PATH = REPO_ROOT / "CAPABILITY.toml"
-ONBOARDING_PATH = REPO_ROOT / "agent-personallog" / "onboarding.md"
-FROM_FLEET_DIR = REPO_ROOT / "from-fleet"
-FOR_FLEET_DIR = REPO_ROOT / "for-fleet"
-HEALTH_RESPONSE_PATH = VESSEL_DIR / "lighthouse" / "health-response.json"
+# Path resolution: supports SUPERZ_REPO_ROOT env var or defaults to 2 levels up from this file
+# When vessel/ is extracted standalone, set SUPERZ_REPO_ROOT to the project root
+_REPO_ROOT = Path(os.environ.get("SUPERZ_REPO_ROOT", Path(__file__).resolve().parent.parent.parent))
+VESSEL_DIR = _REPO_ROOT / "vessel"
+CONFIG_PATH = Path(os.environ.get("SUPERZ_CONFIG_PATH", VESSEL_DIR / "lighthouse" / "config.json"))
+CAPABILITY_PATH = _REPO_ROOT / "CAPABILITY.toml"
+ONBOARDING_PATH = _REPO_ROOT / "agent-personallog" / "onboarding.md"
+FROM_FLEET_DIR = _REPO_ROOT / "from-fleet"
+FOR_FLEET_DIR = _REPO_ROOT / "for-fleet"
+HEALTH_RESPONSE_PATH = Path(os.environ.get("SUPERZ_HEALTH_PATH", VESSEL_DIR / "lighthouse" / "health-response.json"))
 
 REQUIRED_CONFIG_FIELDS = [
     ("model.api_key", str),

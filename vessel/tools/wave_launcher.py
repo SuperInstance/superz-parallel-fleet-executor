@@ -12,12 +12,13 @@ provides structure for wave planning.
 """
 
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-WAVE_STATE_PATH = REPO_ROOT / "agent-personallog" / "wave-state.json"
+REPO_ROOT = Path(os.environ.get("SUPERZ_REPO_ROOT", Path(__file__).resolve().parent.parent.parent))
+WAVE_STATE_PATH = Path(os.environ.get("SUPERZ_WAVE_STATE_PATH", REPO_ROOT / "agent-personallog" / "wave-state.json"))
 
 
 def parse_tasks(task_string):
