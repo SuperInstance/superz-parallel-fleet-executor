@@ -33,25 +33,33 @@ echo "Your task description here" > from-fleet/directive-001.md
 # The agent will pick it up on next boot.
 ```
 
-## How This Agent Runs
+## How This Agent Works
 
-**Important**: This repo does not contain a standalone runtime executable. The agent is an **LLM session** that reads the files in this repository as its context. Here's what that means:
+**What this repo IS**:
+- A knowledge framework: expertise maps, quality standards, and runtime patterns
+- A protocol template: fleet communication, session reporting, and git conventions
+- A tool suite: boot validation, wave planning, audit checklists, and quality validation
+- A persistent memory system: the agent-personallog/ survives context resets
 
-1. **You are the runtime.** Open your LLM of choice (GLM-5, GPT-4, Claude, etc.) and give it the contents of `vessel/prompts/system.md` as its system prompt.
+**What this repo is NOT**:
+- A standalone executable that runs by itself
+- An LLM API client (no model inference code here)
+- A replacement for an agent runtime (Oracle, AutoGPT, LangChain, etc.)
 
-2. **The repo is the context.** Place this repo's files where the LLM can read them. The system prompt instructs the agent to read `agent-personallog/onboarding.md`, scan `from-fleet/`, etc.
+**How to use it**:
 
-3. **The lighthouse keeper orchestrates.** Oracle1 (or whichever coordinator you use) manages the agent by dropping directive files in `from-fleet/` and reading reports from `for-fleet/`.
+1. **Solo agent (quick start)**: Read `vessel/prompts/system.md` as your system prompt, use the quality validator on your output, and store session notes in `agent-personallog/`. The expertise files and quality standards work great even without the fleet infrastructure.
 
-4. **The tools are planning aids.** `boot.py`, `wave_launcher.py`, and `audit_checklist.py` help the LLM agent plan its work. They do not execute the agent themselves — the LLM does.
+2. **Fleet agent (full experience)**: Point your multi-agent runtime at this repo. Drop directives in `from-fleet/`, the agent writes reports to `for-fleet/`, and the lighthouse keeper coordinates via `for-oracle1/`. The fleet protocol adds structure for multi-agent coordination.
 
-**In practice**: Most users of this repo will:
-- Clone it into their fleet workspace
-- Configure `vessel/lighthouse/config.json` with their API credentials
-- Point their agent runtime (LLM session) at the repo
-- The agent reads the system prompt and becomes operational
+3. **Extract the vessel**: Copy `vessel/` to any other repo. Add your own `agent-personallog/`. The prompt, knowledge, tools, and schemas are self-contained. This is the "agent-in-a-folder" pattern.
 
-The `boot.py` script validates the setup and provides useful diagnostics, but the actual "agent" is the LLM reading these files and following the instructions in the system prompt.
+**For solo users**: You can ignore the fleet protocol directories (`from-fleet/`, `for-fleet/`, `message-in-a-bottle/`) and still get value from:
+- `vessel/prompts/system.md` — comprehensive system prompt
+- `vessel/knowledge/expertise-maps.md` — transferable domain expertise
+- `vessel/knowledge/patterns.md` — runtime patterns (wave launch, audit, deep deliverable)
+- `vessel/tools/quality_validator.py` — enforce content depth standards
+- `agent-personallog/` — persistent memory for session continuity
 
 ## Architecture
 
